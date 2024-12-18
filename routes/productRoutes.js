@@ -1,6 +1,6 @@
 // routes/productRoutes.js
 const express = require('express');
-const { addProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require('../controllers/product/productController');
+const { addProduct, getAllProducts, getProductById, updateProduct, deleteProduct } = require('../controllers/product/ProductController');
 const verifyToken = require('../middlewares/authMiddleware'); // Memastikan hanya pengguna terotorisasi yang dapat mengakses
 const checkRole = require('../middlewares/checkRole'); // Verifikasi peran jika diperlukan
 
