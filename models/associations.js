@@ -34,7 +34,7 @@ Transaction.belongsTo(User, { foreignKey: 'user_id' });
 Transaction.hasOne(PaymentDetail, { foreignKey: 'transaction_id' });
 PaymentDetail.belongsTo(Transaction, { foreignKey: 'transaction_id' });
 
-// models/transaction.js
+// models/Transaction.js
 
 Transaction.belongsToMany(Product, { through: 'transaction_products', foreignKey: 'transaction_id' });
 Product.belongsToMany(Transaction, { through: 'transaction_products', foreignKey: 'product_id' });

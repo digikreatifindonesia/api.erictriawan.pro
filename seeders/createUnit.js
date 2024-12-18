@@ -1,5 +1,5 @@
 // seeders/20231201000100-coffee-shop-units.js
-const { Unit } = require('../models/unit');
+const { Unit } = require('../models/Unit');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {

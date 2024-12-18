@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/auth/user');
+const User = require('../models/auth/User');
 
 
 //get profile

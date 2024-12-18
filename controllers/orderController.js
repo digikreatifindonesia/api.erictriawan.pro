@@ -1,4 +1,4 @@
-const Order = require('../models/transaction/order');
+const Order = require('../models/transaction/Order');
 
 const createOrder = async (req, res) => {
     const { userId, items, orderType, deliveryAddress } = req.body;

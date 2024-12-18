@@ -2,9 +2,13 @@ const express = require('express');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const cors = require('cors');
-const http = require('http'); // Import HTTP module untuk WebSocket
+const http = require('http'); // Import HTTP module for WebSocket
 const { sequelize } = require('./models');  // Import the models from 'models/index.js'
 const socketIo = require('socket.io'); // Import Socket.IO
+
+// Swagger Setup
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -18,8 +22,8 @@ const unitRoutes = require('./routes/unit');
 const loyaltyRoutes = require('./routes/loyaltyRoutes');
 const productRoutes = require('./routes/productRoutes');
 const addOnRoutes = require('./routes/addOnRoutes');
-const ingredientRoutes= require('./routes/ingredientRoutes');
-const transactionRoutes= require ('./routes/transaction');
+const ingredientRoutes = require('./routes/ingredientRoutes');
+const transactionRoutes = require('./routes/transaction');
 
 // Seeder
 const createAdmin = require('./seeders/createAdmin'); // Import seeder
@@ -35,6 +39,32 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger configuration
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API Documentation',
+            version: '0.0.1',
+            description: 'API Documentation for Node.js Express App',
+        },
+        servers: [
+            {
+                url: 'http://localhost:3000', // Development URL
+            },
+            {
+                url: 'https://api.erictriawan.pro', // Production URL
+            },
+        ],
+    },
+    apis: ['./routes/*.js'], // Path to your API files for documentation generation
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+// Serve Swagger UI at /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 // Routes setup
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -49,7 +79,7 @@ app.use('/api/transaction', transactionRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/add-ons', addOnRoutes);
-app.use('/api/ingredient', ingredientRoutes)
+app.use('/api/ingredient', ingredientRoutes);
 
 // Loyalty Routes
 app.use('/api/loyalty', loyaltyRoutes);

@@ -11,10 +11,10 @@ const AddOnCategory = require('./product/AddOnCategory')(sequelize, DataTypes);
 const AddOn = require('./product/AddOn')(sequelize, DataTypes);
 const Ingredient = require('./product/Ingredient')(sequelize, DataTypes);
 const Branch = require('./branch/Branch')(sequelize, DataTypes);  // Perbaikan penamaan, konsisten dengan nama model
-const Franchise = require('./franchise')(sequelize, DataTypes); // Sesuaikan dengan penamaan model
+const Franchise = require('./Franchise')(sequelize, DataTypes); // Sesuaikan dengan penamaan model
 const Transaction = require('./transaction/Transaction')(sequelize, DataTypes);  // Konsisten dengan nama file dan model
 const PaymentDetail = require('./transaction/PaymentDetail')(sequelize, DataTypes);  // Konsisten dengan penamaan model
-const TransactionProduct = require('./transaction/transactionProduct')(sequelize,DataTypes);
+const TransactionProduct = require('./transaction/TransactionProduct')(sequelize,DataTypes);
 
 // Ekspor objek sequelize dan semua model
 module.exports = {

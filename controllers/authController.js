@@ -134,7 +134,7 @@ exports.loginAdmin = async (req, res) => {
         // Jika password valid, buat JWT token
         const token = jwt.sign(
             { userId: user.id, username: user.username, role: user.role },
-            process.env.JWT_SECRET,  // Pastikan secret tersedia di .env.exmaple
+            process.env.JWT_SECRET,  // Pastikan secret tersedia di .env
             { expiresIn: '1h' }
         );
 

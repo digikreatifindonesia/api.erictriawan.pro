@@ -1,0 +1,48 @@
+name: Deploy Node.js API and Update Swagger
+
+on:
+  push:
+    branches:
+      - main  # Pipeline akan berjalan jika ada push ke branch 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22' # Versi Node.js Anda
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Run tests (Opsional, jika Anda memiliki test)
+      - name: Run Tests
+        run: npm test
+
+      # 5. Build Swagger Documentation (Jika Swagger di-generate secara otomatis)
+      - name: Generate Swagger
+        run: npm run swagger:generate # Ganti sesuai script Anda
+
+      # 6. Setup SSH Key
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H your-vps-ip >> ~/.ssh/known_hosts
+
+      # 7. Deploy to VPS
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ericapi2@62.72.59.151 'cd /htdocs && git pull origin main && npm install && pm2 restart all'
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}

@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/auth/user');
+const User = require('../models/auth/User');
 
 async function createAdmin() {
     try {
